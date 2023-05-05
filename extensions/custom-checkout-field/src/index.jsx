@@ -1,19 +1,15 @@
-import React from 'react';
-import {
-  useExtensionApi,
-  render,
-  Banner,
-  useTranslate,
-} from '@shopify/checkout-ui-extensions-react';
+import React from "react";
+import { render, TextField } from "@shopify/checkout-ui-extensions-react";
 
-render('Checkout::Dynamic::Render', () => <App />);
+render("Checkout::Dynamic::Render", () => <App />);
 
 function App() {
-  const {extensionPoint} = useExtensionApi();
-  const translate = useTranslate();
-  return (
-    <Banner title="custom-checkout-field">
-      {translate('welcome', {extensionPoint})}
-    </Banner>
-  );
+  const [error, setError] = useState(false);
+  const [residentID, setResidentID] = useState("");
+
+  const handleFieldChange = (value) => {
+    setResidentID(value);
+  };
+
+  return <TextField label='Resident ID' value={residentID} error={error ? "Please provide a valid ID" : false} onChange={handleFieldChange} />;
 }
